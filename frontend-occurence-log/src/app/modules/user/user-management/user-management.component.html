@@ -1,0 +1,51 @@
+<form [formGroup]="managementForm" (ngSubmit)="updateUserInfo(managementForm.value)">
+    <section class="container">
+        <br>
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <h4>Informação Pessoal</h4>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label">Nome</label>
+                <input type="text" class="form-control" formControlName="name" [value]="nome" maxlength="35"
+                [ngClass]="{'is-invalid': submitted && f.name.errors}">
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required"> É necessário o nome para atualizar a informação!</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label">Email</label>
+                <input type="text" class="form-control" formControlName="email" [value]="email"
+                [ngClass]="{'is-invalid': submitted && f.email.errors}">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required"> É necessário ter um email válido!</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label">Contacto Telefónico</label>
+                <input type="text" class="form-control" formControlName="phone" [value]="n_telemovel"
+                [ngClass]="{'is-invalid': submitted && f.phone.errors}">
+                <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                    <div *ngIf="f.phone.errors.required"> É necessário um contacto telefónico!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <div class="row text-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+        <button class="btn">Atualizar</button>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</form>

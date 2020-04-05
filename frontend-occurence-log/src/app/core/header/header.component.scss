@@ -1,0 +1,15 @@
+@media (man-width: 768px) {
+  .navbar-brand
+      {
+          position: absolute;
+          width: 100%;
+          left: 0;
+          text-align: center;
+          z-index: 9999;
+      }
+  }
+  
+  .navbar-dark {
+    background-color: #339999;
+    border-color: #E7E7E7;
+}

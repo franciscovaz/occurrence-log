@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+@import '~ngx-toastr/toastr-bs4-alert';
+
+
+
+html, body { height: 100%; }
+
+body {
+    // background-color: rgb(162,162,162);
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// para procurar e fazer autocomplete no input do google maps
+.pac-container {
+  z-index: 1052 !important; // Must be higher than z-index of bootstrap modal
+}
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

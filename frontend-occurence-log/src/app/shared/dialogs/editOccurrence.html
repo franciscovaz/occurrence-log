@@ -1,0 +1,33 @@
+<style>
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}</style>
+
+<h3>Atualização do estado da ecorrência</h3>
+<h5>Estado atual: {{data.estado_atual}}</h5>
+<div mat-dialog-content>
+    <div class="col-md-12">
+    <mat-form-field>
+      <mat-label>Estado da ocorrência</mat-label>
+      <mat-select matNativeControl required (selectionChange)="onSelectStatus($event.value)">
+        <mat-option value="1" >Por tratar</mat-option>
+        <mat-option value="2">Em análise</mat-option>
+        <mat-option value="3">Em progresso</mat-option>
+        <mat-option value="4">Finalizado</mat-option>
+        <mat-option value="5">Cancelado</mat-option>
+      </mat-select>
+    </mat-form-field>
+</div>
+        <br>
+    <div class="col-md-12">
+        <label class="control-label">Comentário</label>
+        <textarea type="text" [(ngModel)]="data.comentario" class="form-control"></textarea>
+    </div>  
+
+</div>
+<br>
+
+<div mat-dialog-actions style="justify-content: flex-end;">
+    <button mat-raised-button (click)="onCloseClick(data.comentario, data.id)" >Atualizar</button>
+</div> 

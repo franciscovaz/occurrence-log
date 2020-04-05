@@ -1,0 +1,60 @@
+<div class="body">
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
+
+                <!-- Imagem -->
+                <div class="col-12 user-img">
+                    <img src="assets/img/face.png">
+                </div>
+
+                <!-- FORM -->
+                <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)" class="col-12">
+                    <!-- Nome -->
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nome" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.name.errors.required"> Nome é necessário</div> -->
+                        </div>
+                    </div>
+                    <!-- Email -->
+                    <div class="form-group" id="email">
+                        <input type="text" class="form-control" formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.email.errors.required">Email necessário</div> -->
+                            <!-- <div *ngIf="f.email.errors.email">Tem que ser um endereço de email válido</div> -->
+                        </div>
+                    </div>
+                    <!-- Telemovel -->
+                    <div class="form-group" id="phone">
+                        <input type="text" class="form-control" formControlName="phone" placeholder="Telemóvel (Opcional)">
+                    </div>
+                    <!-- Password -->
+                    <div class="form-group" id="password">
+                        <input type="password" class="form-control" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.password.errors.required">Password necessária</div> -->
+                        </div>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div class="form-group" id="password_confirmed">
+                        <input type="password" class="form-control" formControlName="confirm_password" placeholder="Confirme a password" [ngClass]="{ 'is-invalid': submitted && f.confirm_password.errors }">
+                        <div *ngIf="submitted && f.confirm_password.errors" class="invalid-feedback">
+                            <div *ngIf="f.confirm_password.errors.mustMatch">Passwords têm que coincidir</div>
+                        </div>
+                    </div>
+
+                    <!-- Butão -->
+                    <button type="submit" class="btn">
+                        <fa-icon [icon]="faSignInAlt"></fa-icon>
+                        Registar
+                    </button>
+                </form>
+
+                <div class="col-12 forgot">
+                    <a routerLink="/">Login</a>
+                </div>
+            </div>
+        </div> <!-- End of modal content-->
+    </div>
+</div>

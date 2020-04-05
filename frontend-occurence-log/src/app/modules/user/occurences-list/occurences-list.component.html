@@ -1,0 +1,180 @@
+<div class="row">
+  <div class="col-md-12 d-none d-xl-block d-lg-block d-xl-none">
+    <br>
+    <h4 style="text-align: center;">Listagem de Ocorrências</h4>
+    <div class="row" *ngIf="noOccurrences">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+          <ng-container matColumnDef="id_ocorrencia">
+            <th mat-header-cell *matHeaderCellDef> ID Ocorrência</th>
+            <td mat-cell *matCellDef="let element"> {{element.id_ocorrencia}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nome_utilizador">
+            <th mat-header-cell *matHeaderCellDef> Utilizador </th>
+            <td mat-cell *matCellDef="let element"> {{element.nome_utilizador}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="titulo_ocorrencia">
+            <th mat-header-cell *matHeaderCellDef> Título </th>
+            <td mat-cell *matCellDef="let element"> {{element.titulo_ocorrencia}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="data_ocorrencia">
+            <th mat-header-cell *matHeaderCellDef> Data ocorrência </th>
+            <td mat-cell *matCellDef="let element"> {{element.data_ocorrencia}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="descricao_estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.descricao_estado}} </td>
+          </ng-container>
+
+          <div *ngIf="isResponsable">
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Editar estado </th>
+              <td mat-cell *matCellDef="let element">
+                <i class="material-icons" (click)="editarEstado(element)">
+                  edit
+                </i>
+              </td>
+            </ng-container>
+          </div>
+
+
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+              <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="example-element-diagram">
+                  <img [src]="element.url_fotografia" width="100px" height="104px"
+                    (click)="openDialog(element.url_fotografia)">
+                </div>
+                <div class="example-element-description">
+                  Título: <span class="example-element-description-attribution">{{element.titulo_ocorrencia}}</span>
+                  <br />
+                  Descrição: <span class="example-element-description-attribution"> {{element.descricao_ocorrencia}}
+                  </span>
+                  <br>
+                  Nome Utilizador: <span
+                    class="example-element-description-attribution">{{element.nome_utilizador}}</span>
+                  <br>
+                  Email Utilizador: <span
+                    class="example-element-description-attribution">{{element.email_utilizador}}</span>
+                  <br>
+                  Contacto Utilizador: <span
+                    class="example-element-description-attribution">{{element.telemovel_utilizador}}</span>
+                  <br>
+                  Localização: <span class="example-element-description-attribution">
+                    {{element.latitude_ocorrencia}},{{element.longitude_ocorrencia}}</span>
+                  <br>
+                  <div *ngIf="element.rua_ocorrencia">
+                    Rua: <span class="example-element-description-attribution"> {{element.rua_ocorrencia}}</span>
+                  </div>
+                  <div *ngIf="element.comentario_ocorrencia">
+                    Comentário: <span
+                      class="example-element-description-attribution">{{element.comentario_ocorrencia}}</span>
+                  </div>
+                  <div *ngIf="element.data_ultima_atualizacao_ocorrencia">
+                    Data última atualização: <span
+                      class="example-element-description-attribution">{{element.data_ultima_atualizacao_ocorrencia}}</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+ 
+
+
+
+
+
+  <!-- MOBILE -->
+  <div class="col-md-12 d-none d-md-block d-lg-none d-sm-block d-md-none d-block d-sm-none">
+    <br>
+    <h4 style="text-align: center;">Listagem de Ocorrências</h4>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <mat-form-field>
+        <mat-label>Filtrar</mat-label>
+        <mat-select matNativeControl required (selectionChange)="onSelectStatus($event.value)">
+          <mat-option value="Por tratar">Por tratar</mat-option>
+          <mat-option value="Em análise">Em análise</mat-option>
+          <mat-option value="Em progresso">Em progresso</mat-option>
+          <mat-option value="Finalizado">Finalizado</mat-option>
+          <mat-option value="Cancelado">Cancelado</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-2"></div>
+    <br>
+    <div *ngIf="haveOccurences">
+      <a *ngFor="let post of ocorrenciasFiltradas" (click)="selectPost(post);">
+
+        <mat-card matRipple matRippleColor="rgba(131, 167, 185, 0.22)"
+          style="padding: 2rem; margin: 2rem; min-width: 20rem;">
+          <mat-card-title style="padding-bottom: 1rem;">
+            Titulo: {{ post.titulo_ocorrencia }} | Data Ocorrência: {{ post.data_ocorrencia }} |
+            Estado Ocorrência: {{ post.descricao_estado }}
+          </mat-card-title>
+          <mat-card-content style="padding-bottom: 1rem;">
+            <b>Descrição:</b> {{ post.descricao_ocorrencia }}
+            <br>
+            <b>Nome Utilizador: </b>{{ post.nome_utilizador }}
+            <br>
+            <b>Email Utilizador: </b>{{ post.email_utilizador }}
+            <br>
+            <b>Telemóvel Utilizador:</b> {{ post.telemovel_utilizador }}
+            <div *ngIf="post.latitude_ocorrencia">
+              <b>Localização:</b> {{ post.latitude_ocorrencia}},{{ post.longitude_ocorrencia}}
+            </div>
+            <div *ngIf="post.rua_ocorrencia">
+              <b>Rua:</b> {{ post.rua_ocorrencia }}
+            </div>
+            <br>
+            <div *ngIf="post.comentario_ocorrencia">
+              <b>Comentário:</b> {{ post.comentario_ocorrencia }}
+            </div>
+            <div *ngIf="post.data_ultima_atualizacao_ocorrencia">
+              <b>Data última atualização:</b> <span
+                class="example-element-description-attribution">{{post.data_ultima_atualizacao_ocorrencia}}</span>
+            </div>
+            <img [src]="post.url_fotografia" width="100px" height="104px" (click)="openDialog(post.url_fotografia)">
+          </mat-card-content>
+          <!-- <mat-card-footer>
+                    <span style="padding: 1rem;"*ngFor="let tag of post.tags">{{tag}}</span>
+                  </mat-card-footer> -->
+        </mat-card>
+      </a>
+    </div>
+    <div *ngIf="!haveOccurences">
+      <mat-card matRipple matRippleColor="rgba(131, 167, 185, 0.22)"
+          style="padding: 2rem; margin: 2rem; min-width: 20rem;">
+          <mat-card-title style="padding-bottom: 1rem;">
+            Não existem ocorrências para mostrar!
+          </mat-card-title>
+        </mat-card>
+    </div>
+  </div>
+</div>
+<br>
+<br>

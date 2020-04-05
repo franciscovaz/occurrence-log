@@ -1,0 +1,188 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+    <section class="container">
+        <br />
+        <div class="row">
+            <br />
+            <div class="col-md-12" style="text-align: center;">
+                <h4>Registar Ocorrência</h4>
+            </div>
+            <br />
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label">Título do Problema</label>
+                <input type="text" maxlength="35" formControlName="occurenceTitle" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.occurenceTitle.errors }" />
+                <div *ngIf="submitted && f.occurenceTitle.errors" class="invalid-feedback">
+                    <div *ngIf="f.occurenceTitle.errors.required">É necessário um título para a ocurrência!</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label">Descrição</label>
+                <textarea class="form-control" rows="5" maxlength="355" formControlName="occurenceDescription"
+                placeholder="Breve descrição identificando a rua e algum ponto de referencia. Assim será mais fácil identificar o local!"
+                    [ngClass]="{ 'is-invalid': submitted && f.occurenceDescription.errors }"></textarea>
+                <div *ngIf="submitted && f.occurenceDescription.errors" class="invalid-feedback">
+                    <div *ngIf="f.occurenceDescription.errors.required"> É necessário uma descriç\ao para a ocurrência!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Morada</label>
+                    <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+                        placeholder="Procure uma localização próxima" autocorrect="off" autocapitalize="off"
+                        spellcheck="off" #search>
+                        <small class="form-text text-muted">Pesquise e clique no mapa para colocar o marcador na sua localização.</small>
+                </div>
+                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom"
+                    (mapClick)="onChooseLocation($event)">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                        (dragEnd)="markerDragEnd($event)">
+                    </agm-marker>
+                </agm-map>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12 d-none d-xl-block">
+                <div *ngIf="showPreviewDiv">
+                    <div class="text-center">
+                        <img [src]="imgSrc" width="350px" height="250px" (click)="imageUploader1.click()">
+                    </div>
+                </div>
+                <label>PC1 - Selecione a imagem para upload</label>
+                <br>
+                <input type="file" accept="image/*" class="form-control" style="display: none" #imageUploader1
+                    formControlName="imageUploader" (change)="showPreview($event)"
+                    [ngClass]="{ 'is-invalid': submitted && f.imageUploader.errors }">
+                <button type="button" class="btn" (click)="imageUploader1.click()"><i class="fa fa-camera"></i></button>
+                <div *ngIf="submitted && f.imageUploader.errors" class="invalid-feedback">
+                    <div *ngIf="f.imageUploader.errors.required">Adicione fotografia da ocorrência!</div>
+                </div>
+            </div>
+            <div class="col-md-12 d-none d-lg-block d-xl-none">
+                <label>Selecione uma image para upload</label>
+                <br>
+                <input type="file" style="display: none" accept="image/*" class="form-control"  
+                formControlName="imageUploader" (change)="showPreview($event)" 
+                [ngClass]="{ 'is-invalid': submitted && f.imageUploader.errors }" #imageUploader2>
+                <button type="button" class="btn" (click)="imageUploader2.click()"><i class="fa fa-camera"></i></button>
+                <div *ngIf="submitted && f.imageUploader.errors" class="invalid-feedback">
+                    <div *ngIf="f.imageUploader.errors.required"> Adicione uma fotografia da ocorrência!</div>
+                </div>
+                <div *ngIf="showPreviewDiv">
+                    <div class="text-center">
+                        <img [src]="imgSrc" width="350px" height="250px" (click)="imageUploader2.click()">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 d-none d-md-block d-lg-none">
+                    <div *ngIf="showPreviewDiv">
+                            <div class="text-center">
+                                <img [src]="imgSrc" width="350px" height="250px" (click)="imageUploader3.click()">
+                            </div>
+                        </div>
+                    <label>Mobile 1 - Imagem para upload</label>
+                    <br>
+                    <input type="file" style="display: none" accept="image/*" class="form-control"  
+                    formControlName="imageUploader" (change)="showPreview($event)" 
+                    [ngClass]="{ 'is-invalid': submitted && f.imageUploader.errors }" #imageUploader3 capture>
+                    <button type="button" class="btn" (click)="imageUploader3.click()"><i class="fa fa-camera"></i></button>
+                    <div *ngIf="submitted && f.imageUploader.errors" class="invalid-feedback">
+                        <div *ngIf="f.imageUploader.errors.required"> Adicione uma fotografia da ocorrência!</div>
+                    </div>
+            </div>
+            <div class="col-md-12 d-none d-sm-block d-md-none">
+                    <label>Mobile 2 - Imagem para upload</label>
+                    <br>
+                    <input type="file" style="display: none" accept="image/*" class="form-control"  
+                    formControlName="imageUploader" (change)="showPreview($event)" 
+                    [ngClass]="{ 'is-invalid': submitted && f.imageUploader.errors }" #imageUploader4 capture>
+                    <button type="button" class="btn" (click)="imageUploader4.click()"><i class="fa fa-camera"></i></button>
+                    <div *ngIf="submitted && f.imageUploader.errors" class="invalid-feedback">
+                        <div *ngIf="f.imageUploader.errors.required"> Adicione uma fotografia da ocorrência!</div>
+                    </div>
+
+            </div>
+            <div class="col-md-12 d-block d-sm-none">
+                    <div *ngIf="showPreviewDiv">
+                            <div class="text-center">
+                                <img [src]="imgSrc" width="350px" height="250px" (click)="imageUploader5.click()">
+                            </div>
+                        </div>
+                    <label>Mobile 3 - Imagem para upload</label>
+                    <br>
+                    <input type="file" style="display: none" accept="image/*" capture class="form-control"  
+                    formControlName="imageUploader" (change)="showPreview($event)" 
+                    [ngClass]="{ 'is-invalid': submitted && f.imageUploader.errors }" #imageUploader5>
+                    <button type="button" class="btn" (click)="imageUploader5.click()"><i class="fa fa-camera"></i></button>
+                    <div *ngIf="submitted && f.imageUploader.errors" class="invalid-feedback">
+                        <div *ngIf="f.imageUploader.errors.required"> Adicione uma fotografia da ocorrência!</div>
+                    </div>
+            </div>
+        </div>
+
+        <br>
+    </section>
+    <br>
+    <br>
+    <div class="container">
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header collapsed" style="color:black"  data-toggle="collapse" href="#collapseOne">
+                  <a class="card-title" >
+                    Informação Pessoal
+                  </a>
+                </div>
+                <div id="collapseOne" class="collapse" data-parent="#accordion">
+                  <div class="card-body">
+                        <label class="control-label">Nome</label>
+                        <input type="text" readonly="readonly" formControlName="name" [value]="this.nome"maxlength="35" class="form-control"
+                        [ngClass]="{'is-invalid' : submitted && f.name.errors}"/>  
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                <div *ngIf="f.name.errors.required">É necessário o nome da pessoa a reportar a ocurrência!</div>
+                            </div>   
+                        <br>    
+                        
+                        <label class="control-label">Email</label>
+                        <input type="text" readonly="readonly" formControlName="email" [value]="this.email" maxlength="35" class="form-control"
+                        [ngClass] = "{'is-invalid': submitted && f.email.errors}"/>    
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">É necessário um email para ser contactado(a)!</div>
+                        </div> 
+                        <br>   
+
+                        <label class="control-label">Contacto telefónico</label>
+                        <input type="text" readonly="readonly" formControlName="phone_number" [value]="this.contacto" maxlength="35" class="form-control"
+                        [ngClass]="{'is-invalid': submitted && f.phone_number.errors}"/>     
+                        <div *ngIf="submitted && f.phone_number.errors" class="invalid-feedback">
+                            <div *ngIf="f.phone_number.errors.required">É necessário um contacto telefónico para ser contactado(a)!</div>
+                        </div>
+                        <br>   
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+    <br />
+    <div class="row text-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <button class="btn">Registar</button>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <br>
+    <br>
+</form>
+
+<br><br>

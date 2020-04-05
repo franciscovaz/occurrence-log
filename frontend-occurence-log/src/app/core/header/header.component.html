@@ -1,0 +1,35 @@
+<div *ngIf="isLoggedIn$ | async as isLoggedIn">
+    <nav class="navbar navbar-dark navbar-expand-md bg-faded justify-content-center">
+        <a href="/" class="navbar-brand d-flex w-50 mr-auto">Registo de Ocorrências</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse w-100" id="collapsingNavbar3" >
+            <ul class="navbar-nav w-100 justify-content-center">
+                <li class="nav-item active" >
+                    <a class="nav-link" routerLink="op/registo">Registar Ocorrência</a> 
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="op/lista"> Ocorrências</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="op/management"><fa-icon [icon]="faUser"></fa-icon></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" (click)="logOut()" *ngIf="isLoggedIn">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div *ngIf="!isLoggedIn$ | async">
+    <nav class="navbar navbar-dark navbar-expand-md bg-faded justify-content-center">
+        <a href="/" class="navbar-brand d-flex">Registo de Ocorrências</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+</div>

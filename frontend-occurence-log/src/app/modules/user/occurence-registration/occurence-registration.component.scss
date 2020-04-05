@@ -1,0 +1,46 @@
+mat-card {
+    margin: 10px 0;
+}
+
+agm-map{
+  height: 400px;
+}
+
+.btn {
+  background-color: #339999;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: #C8C8C8;
+}
+
+.allRow{
+  width: 100%;
+}
+
+.card-link a{
+  background-color: black;
+}
+
+.control-label:after {
+  content:" *";
+  color:red;
+}
+
+
+// Para o + e - do collapse para personal info
+.card-header:after{
+  font-family: FontAwesome;
+  content: "\f068";
+  float: right;
+}
+
+.card-header.collapsed:after{
+  content: "\f067"
+}
