@@ -11,6 +11,7 @@
   <a href="#rocket-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#construction_worker-tools">Tools</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#pencil2-functionalities">Functionalities</a>&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-run-the-project">Run the project</a>&nbsp;&nbsp;&nbsp;
 </p>
 
 ## :rocket: About the project
@@ -66,6 +67,22 @@ The app was created with some tolls/libraries/tecnologies:
 <img src="gifs/visualizacaodeestadoalterado.gif" width="550" height="450" />
 
 
+## :rocket: Run the project
+
+<p>
+  To run the backend of the project, go to the backend project folder and:
+
+  - $npm install
+  - $nodemon index.js
+  <br />
+ To run the frontend, go to frontend project folder and:
+ 
+  - $npm install
+  - $ng serve -o
+</p>
+
+
+
 ---
 
-Build with ♥ by Francisco Vaz :wave: <!-- [Join our community!](https://discordapp.com/invite/gCRAFhc) -->
+Build with ♥ by Francisco Vaz :wave: 
