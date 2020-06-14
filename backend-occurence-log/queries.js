@@ -284,7 +284,7 @@ const getOcorrenciaByUser = (request, response) => {
 };
 
 const createOcorrencia = (request, response) => {
-  console.log("Request Body ID: ", request.body.fk_utilizador);
+  //console.log("Request Body ID: ", request.body.fk_utilizador);
   const {
     titulo_ocorrencia,
     descricao_ocorrencia,
