@@ -336,7 +336,9 @@ const updateOcorrencia = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(200).send(results);
+      response
+        .status(200)
+        .send("O estado da ocorrência foi editado com sucesso.");
     }
   );
 };
