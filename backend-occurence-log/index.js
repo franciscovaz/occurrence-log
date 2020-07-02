@@ -60,7 +60,7 @@ app.delete("/utilizador-delete/:id", isLoggedIn, db.deleteUtilizador);
 app.get("/ocorrencias", db.getOcorrencias);
 app.get("/ocorrencias-estado/:id", isLoggedIn, db.getOcorrenciasByState);
 app.get("/ocorrencia/:id", db.getOcorrenciaById);
-app.get("/ocorrencia-user/:id_user", isLoggedIn, db.getOcorrenciaByUser);
+app.get("/ocorrencia-user/:id_user", db.getOcorrenciaByUser);
 app.post("/ocorrencia", db.createOcorrencia);
 app.put("/ocorrencia-update/:id", db.updateOcorrencia);
 app.delete("/ocorrencia/:id", isLoggedIn, db.deleteOcorrencia);
@@ -177,6 +177,7 @@ app.get("/token/sign/:email/:id_utilizador", (req, res) => {
 function isLoggedIn(req, res, next) {
   // check header or url parameters or post parameters for token
   var token = req.headers.authorization;
+  console.log(token);
   // decode token
   if (token) {
     // verifies secret and checks exp
